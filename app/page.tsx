@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { type FormEvent, useEffect, useRef, useState } from "react";
 
 const heroStats = [
   { value: "8.9M", label: "Reproducciones · 28 días" },
@@ -71,6 +71,7 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [muted, setMuted] = useState(true);
   const [presaveOpen, setPresaveOpen] = useState(true);
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const heroVideoRef = useRef<HTMLVideoElement>(null);
 
   const restartHeroVideo = () => {
@@ -78,6 +79,36 @@ export default function Home() {
     if (!video) return;
     video.currentTime = 0;
     void video.play().catch(() => undefined);
+  };
+
+  const submitContactForm = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (formStatus === "sending") return;
+
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append("_subject", "Nueva solicitud profesional · Dossier Ithan NY");
+    formData.append("_template", "table");
+    formData.append("_url", window.location.href);
+    setFormStatus("sending");
+
+    try {
+      const response = await fetch("https://formsubmit.co/ajax/flownewyorkinc@gmail.com", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok || result?.success === false || result?.success === "false") {
+        throw new Error("No fue posible enviar la solicitud.");
+      }
+
+      form.reset();
+      setFormStatus("success");
+    } catch {
+      setFormStatus("error");
+    }
   };
 
   useEffect(() => {
@@ -408,11 +439,19 @@ export default function Home() {
             a las oportunidades que encajen con el proyecto.
           </p>
         </div>
-        <form className="contact-form" onSubmit={(event) => event.preventDefault()}>
+        <form className="contact-form" onSubmit={submitContactForm}>
           <div className="form-heading">
             <span>Solicitud profesional</span>
-            <small>Canal de recepción en activación</small>
+            <small>Respuesta directa de Flow New York</small>
           </div>
+          <input
+            className="form-honeypot"
+            type="text"
+            name="_honey"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+          />
           <label>
             Nombre y apellido *
             <input type="text" name="name" autoComplete="name" required placeholder="Tu nombre" />
@@ -452,9 +491,13 @@ export default function Home() {
             <input type="checkbox" name="consent" required />
             <span>Acepto que Flow New York use estos datos para responder esta solicitud.</span>
           </label>
-          <button className="button form-submit form-wide" type="submit" disabled>
-            Activar al confirmar email receptor
+          <button className="button form-submit form-wide" type="submit" disabled={formStatus === "sending"}>
+            {formStatus === "sending" ? "Enviando solicitud…" : "Enviar solicitud"}
           </button>
+          <p className={`form-status form-wide ${formStatus}`} aria-live="polite">
+            {formStatus === "success" && "Solicitud enviada. Flow New York se pondrá en contacto contigo."}
+            {formStatus === "error" && "No pudimos enviar la solicitud. Inténtalo nuevamente en unos minutos."}
+          </p>
         </form>
         <div className="contact-orbit" aria-hidden="true"><span>ITHAN</span></div>
       </section>
