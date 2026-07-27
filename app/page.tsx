@@ -10,14 +10,10 @@ const heroStats = [
 ];
 
 const reachStats = [
-  { value: "833K", label: "Oyentes activos mensuales", detail: "52% de la audiencia mensual" },
-  { value: "8.9M", label: "Reproducciones en Spotify", detail: "Últimos 28 días · +2,4%" },
-  { value: "127K", label: "Saves en Spotify", detail: "Últimos 28 días · +11,4%" },
-  { value: "139K", label: "Agregados a playlists", detail: "Últimos 28 días · +0,6%" },
-  { value: "9.4M", label: "Visualizaciones en YouTube", detail: "Últimos 28 días" },
-  { value: "2M", label: "Usuarios únicos YouTube", detail: "Últimos 28 días" },
-  { value: "375K", label: "Suscriptores YouTube", detail: "Al 26 de julio de 2026" },
-  { value: "25.8M", label: "Impresiones YouTube", detail: "CTR de 5,9%" },
+  { value: "8.9M", label: "Reproducciones en Spotify" },
+  { value: "1.6M", label: "Oyentes mensuales" },
+  { value: "477K", label: "Seguidores en Spotify" },
+  { value: "9.4M", label: "Visualizaciones en YouTube" },
 ];
 
 const socialLinks = [
@@ -405,7 +401,7 @@ export default function Home() {
         <div className="section-index">04 / El alcance</div>
         <div className="reach-heading">
           <h2>Cifras con<br /><em>peso real.</em></h2>
-          <p>Datos oficiales de plataformas. Período: 29 de junio al 26 de julio de 2026.</p>
+          <p>Una audiencia consolidada en streaming, video y comunidad digital.</p>
         </div>
         <div className="stats-grid">
           {reachStats.map((stat, index) => (
@@ -413,14 +409,8 @@ export default function Home() {
               <span>0{index + 1}</span>
               <strong>{stat.value}</strong>
               <p>{stat.label}</p>
-              <small>{stat.detail}</small>
             </article>
           ))}
-        </div>
-        <div className="reach-proof">
-          <p><strong>78%</strong> de las reproducciones proviene de oyentes activos mensuales.</p>
-          <p><strong>8.3</strong> reproducciones por oyente activo en los últimos 28 días.</p>
-          <p><strong>325.7K</strong> horas de visualización en YouTube.</p>
         </div>
       </section>
 
