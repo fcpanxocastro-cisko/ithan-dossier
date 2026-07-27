@@ -139,7 +139,19 @@ export default function Home() {
             <button className="presave-close" onClick={() => setPresaveOpen(false)} aria-label="Cerrar anuncio">×</button>
             <div className="presave-art">
               <div className="cover-orbit" aria-hidden="true" />
-              <img src="/placeres-cover.png" alt="Portada de Placeres, próximo álbum de Ithan NY" />
+              <video
+                className="presave-video"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                poster="/placeres-cover.png"
+                aria-label="Teaser visual de Placeres, próximo álbum de Ithan NY"
+              >
+                <source src="/placeres-teaser.mp4" type="video/mp4" />
+              </video>
+              <span className="teaser-badge">Teaser · Placeres</span>
             </div>
             <div className="presave-copy">
               <p className="kicker">Próximo álbum · 06.08.2026</p>

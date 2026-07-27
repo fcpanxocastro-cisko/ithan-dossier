@@ -106,15 +106,39 @@ button { color: inherit; font: inherit; }
   transition: background .2s, transform .2s;
 }
 .presave-close:hover { background: var(--red); transform: rotate(90deg); }
-.presave-art { position: relative; animation: cover-arrive .8s cubic-bezier(.2,.8,.2,1) both; }
-.presave-art img {
+.presave-art {
+  position: relative;
+  width: min(100%, 460px);
+  justify-self: center;
+  animation: cover-arrive .8s cubic-bezier(.2,.8,.2,1) both;
+}
+.presave-art img,
+.presave-art video {
   position: relative;
   z-index: 2;
   width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   display: block;
   border-radius: 14px;
   box-shadow: 0 28px 70px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.16);
   animation: cover-float 4s ease-in-out infinite;
+}
+.presave-video { background: #050505; }
+.teaser-badge {
+  position: absolute;
+  z-index: 3;
+  left: 14px;
+  bottom: 13px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 999px;
+  background: rgba(0,0,0,.68);
+  backdrop-filter: blur(10px);
+  color: rgba(255,255,255,.86);
+  font: 600 8px/1 var(--font-mono);
+  letter-spacing: .16em;
+  text-transform: uppercase;
 }
 .cover-orbit {
   position: absolute;
