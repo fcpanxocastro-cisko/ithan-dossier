@@ -9,15 +9,15 @@ const display = Bebas_Neue({ variable: "--font-display", subsets: ["latin"], wei
 export const metadata: Metadata = {
   title: "Ithan New York — Dossier oficial",
   description: "Dossier oficial 2026 de Ithan NY: artista urbano chileno, música, audiencia, colaboraciones y contacto profesional.",
-  metadataBase: new URL("https://ithan-new-york-orbit.fcpanxocastro.chatgpt.site"),
+  metadataBase: new URL("https://www.flownewyork.cl"),
   openGraph: {
-    title: "Ithan New York — Project Orbit",
+    title: "Ithan New York — Flow New York",
     description: "El sonido de Chile para el mundo.",
-    images: [{ url: "/og.png", width: 1536, height: 1024, alt: "Ithan New York — Project Orbit" }],
+    images: [{ url: "/og.png", width: 1536, height: 1024, alt: "Ithan New York — Flow New York" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ithan New York — Project Orbit",
+    title: "Ithan New York — Flow New York",
     description: "El sonido de Chile para el mundo.",
     images: ["/og.png"],
   },
