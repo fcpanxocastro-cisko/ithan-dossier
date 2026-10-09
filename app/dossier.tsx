@@ -5,10 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 const reachStats = [
-  { value: "8.9M", label: "Reproducciones en Spotify" },
+  { value: "8.9M", label: "Streams Spotify · 28 días" },
   { value: "1.6M", label: "Oyentes mensuales" },
   { value: "477K", label: "Seguidores en Spotify" },
-  { value: "9.4M", label: "Visualizaciones en YouTube" },
+  { value: "9.4M", label: "Vistas YouTube · 28 días" },
 ];
 
 const socialLinks = [
@@ -55,7 +55,7 @@ const journey = [
   { year: "2022", title: "Tu Diablo / X5", copy: "Viralidad, premios y consolidación dentro de la nueva escena urbana chilena." },
   { year: "2023–24", title: "Expansión", copy: "Millonarios Juntos, nuevos públicos y colaboraciones que cruzan fronteras." },
   { year: "2025", title: "Del Lune al Finde", copy: "Una etapa de madurez sonora, identidad visual y crecimiento sostenido." },
-  { year: "2026", title: "Suéltala / Placeres", copy: "El presente y el próximo movimiento: un álbum que abre una nueva era." },
+  { year: "2026", title: "Suéltala / Placeres", copy: "Una nueva etapa del proyecto: música e identidad visual dentro del universo de Placeres." },
 ];
 
 export default function Home({ hub = false }: { hub?: boolean }) {
@@ -84,7 +84,7 @@ export default function Home({ hub = false }: { hub?: boolean }) {
       });
       const result = await response.json().catch(() => null);
 
-      if (!response.ok || result?.success === false || result?.success === "false") {
+      if (!response.ok || !(result?.success === true || result?.success === "true")) {
         throw new Error("No fue posible enviar la solicitud.");
       }
 
@@ -121,7 +121,8 @@ export default function Home({ hub = false }: { hub?: boolean }) {
   }, []);
 
   return (
-    <main>
+    <main id="contenido">
+      <a className="skip-link" href="#top">Saltar al contenido</a>
       <div className="page-noise" aria-hidden="true" />
       <div className="cursor-light" aria-hidden="true" />
 
@@ -134,7 +135,7 @@ export default function Home({ hub = false }: { hub?: boolean }) {
 
         <nav id="main-menu" className={menuOpen ? "nav-links open" : "nav-links"} aria-label="Navegación principal">
           <Link href="/ithan" onClick={() => setMenuOpen(false)}>Ithan New York ↗</Link>
-          <a href="#sound" onClick={() => setMenuOpen(false)}>Su música</a>
+          <a href="#sound" onClick={() => setMenuOpen(false)}>Placeres</a>
           <a href="#journey" onClick={() => setMenuOpen(false)}>Trayectoria</a>
           <a href="#live" onClick={() => setMenuOpen(false)}>Shows</a>
           <a href="#press" onClick={() => setMenuOpen(false)}>Prensa</a>
@@ -181,22 +182,17 @@ export default function Home({ hub = false }: { hub?: boolean }) {
             <span>Ithan</span>
             <strong>New York</strong>
           </h1>
-          <p className="hero-statement">
-            Música. Cultura. Movimiento.<br />
-            Impulsado por <em>Flow New York.</em>
-          </p>
+          <p className="hero-statement">De Villa Francia para el mundo.<br />Música. Identidad. <em>Flow New York.</em></p>
           <div className="hero-actions">
             <a
               className="button button-primary"
-              href="https://www.youtube.com/channel/UCHUwaZ29fbxOHBmk32U-Xdw"
+              href="https://open.spotify.com/artist/0LshXUmIub6xKvOq4QmtNs"
               target="_blank"
               rel="noreferrer"
             >
-              <span className="play-icon">▶</span> Escuchar ahora
+              <span className="play-icon" aria-hidden="true">▶</span> Escuchar en Spotify
             </a>
-            <a className="button button-ghost" href={hub ? "#platforms" : "/ithan"}>
-              <span>✦</span> {hub ? "Todas las plataformas" : "Ver Ithan"}
-            </a>
+            <a className="button button-ghost" href="#sound"><span aria-hidden="true">↗</span> Universo Placeres</a>
           </div>
         </div>
 
@@ -231,19 +227,63 @@ export default function Home({ hub = false }: { hub?: boolean }) {
 
       <section className="platform-hub section" id="platforms">
         <p className="kicker">Ithan New York · En todas partes</p>
-        <h2>Tu próximo<br /><em>play empieza aquí.</em></h2>
+        <h2>Conecta con <em>Ithan.</em></h2>
         <div className="platform-links">
           {socialLinks.map((social) => <a key={social.label} href={social.href} target="_blank" rel="noreferrer"><span>{social.short}</span>{social.label}<i>↗</i></a>)}
         </div>
       </section>
 
-      <section className="manifesto section" id="artist">
-        <div className="section-index">01 / El artista</div>
-        <div className="manifesto-layout">
-          <div className="orbit-seal" aria-hidden="true">
-            <span>NY</span>
-            <i />
+      <section className="sound section" id="sound">
+        <div className="section-index">01 / La música</div>
+        <div className="placeres-feature">
+          <a className="placeres-art" href="https://Ithann-NY.lnk.to/PLACERES" target="_blank" rel="noreferrer" aria-label="Explorar Placeres de Ithan NY en plataformas">
+            <Image src="/placeres-cover.png" alt="Placeres: Ithan NY bajo el título plateado y rosas rojas" width={297} height={296} sizes="(max-width: 720px) 84vw, 440px" />
+            <span>ITHAN NY / PLACERES <span aria-hidden="true">↗</span></span>
+          </a>
+          <div className="placeres-copy">
+            <p className="kicker">Álbum disponible · Ithan NY</p>
+            <h2>PLACERES</h2>
+            <p className="lead">Otro capítulo.<br />La misma esencia.</p>
+            <p>Del origen en Villa Francia a un universo propio. PLACERES reúne la música y la visión de Ithan NY: una nueva etapa que se vive con el mismo código.</p>
+            <a className="button button-primary" href="https://Ithann-NY.lnk.to/PLACERES" target="_blank" rel="noreferrer">Escuchar Placeres <span aria-hidden="true">↗</span></a>
+            <a className="text-link" href="https://www.youtube.com/channel/UCHUwaZ29fbxOHBmk32U-Xdw" target="_blank" rel="noreferrer">Ver el canal oficial en YouTube ↗</a>
           </div>
+        </div>
+        <div className="track-card">
+          <div className="track-cover">
+            <div className="disc"><span>I</span></div>
+          </div>
+          <div className="track-meta">
+            <span>Single · 25.06.2026</span>
+            <h3>Suéltala</h3>
+            <p>Ithan NY</p>
+          </div>
+          <div className="wave" aria-hidden="true">
+            {Array.from({ length: 34 }).map((_, index) => <i key={index} />)}
+          </div>
+          <a
+            className="round-play"
+            href="https://open.spotify.com/track/0gQXTP6fdYbJIMpHsDXFkZ"
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Escuchar Suéltala de Ithan NY en Spotify"
+          >▶</a>
+        </div>
+        <div className="platform-links" aria-label="Escuchar y seguir a Ithan NY">
+          {socialLinks.map((social) => (
+            <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
+              <span>{social.short}</span>
+              {social.label}
+              <i>↗</i>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="manifesto section" id="artist">
+        <div className="section-index">02 / El artista</div>
+        <div className="manifesto-layout">
+          <figure className="artist-portrait"><Image src="/media/ithan-portrait.webp" alt="Retrato de Ithan New York con chaqueta negra y su cadena FNY" width={1200} height={1800} sizes="(max-width: 720px) 90vw, 34vw" /><figcaption>Ithan NY / Villa Francia, Chile</figcaption></figure>
           <div>
             <p className="kicker">Ithan New York · Artista chileno</p>
             <h2>No sigue el movimiento.<br /><em>Lo convierte en cultura.</em></h2>
@@ -272,57 +312,11 @@ export default function Home({ hub = false }: { hub?: boolean }) {
         </div>
       </section>
 
-      <section className="sound section" id="sound">
-        <div className="section-index">02 / La música</div>
-        <div className="sound-heading">
-          <div>
-            <p className="kicker">Música · Lanzamientos</p>
-            <h2>SUÉL<br /><span>TALA</span></h2>
-          </div>
-          <p>
-            Trap, reggaetón y códigos propios: una discografía que evoluciona sin perder
-            el origen. De “Con Roni” y “Jaguar” a una nueva etapa internacional.
-          </p>
-        </div>
-        <div className="track-card">
-          <div className="track-cover">
-            <div className="disc"><span>I</span></div>
-          </div>
-          <div className="track-meta">
-            <span>Single · 25.06.2026</span>
-            <h3>Suéltala</h3>
-            <p>Ithan NY</p>
-          </div>
-          <div className="wave" aria-hidden="true">
-            {Array.from({ length: 34 }).map((_, index) => <i key={index} />)}
-          </div>
-          <a
-            className="round-play"
-            href="https://open.spotify.com/track/0gQXTP6fdYbJIMpHsDXFkZ"
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Escuchar Suéltala de Ithan NY en Spotify"
-          >▶</a>
-        </div>
-        <a className="release-banner" href="https://Ithann-NY.lnk.to/PLACERES" target="_blank" rel="noreferrer">
-          <Image src="/placeres-cover.png" alt="Portada de Placeres" width={160} height={160} sizes="100px" />
-          <span><small>EL UNIVERSO DE ITHAN NY</small><strong>PLACERES</strong>Explorar el proyecto ↗</span>
-        </a>
-        <div className="platform-links" aria-label="Escuchar y seguir a Ithan NY">
-          {socialLinks.map((social) => (
-            <a key={social.label} href={social.href} target="_blank" rel="noreferrer">
-              <span>{social.short}</span>
-              {social.label}
-              <i>↗</i>
-            </a>
-          ))}
-        </div>
-      </section>
-
       <section className="live section" id="live">
         <div className="section-index">Live / Shows</div>
         <div className="live-heading"><h2>Se escucha.<br /><em>Se vive.</em></h2><a className="button button-ghost" href="#contact">Booking ↗</a></div>
         <figure className="live-banner"><Image src="/media/live-crowd.webp" sizes="(max-width: 720px) 100vw, 88vw" alt="Ithan New York frente a su público, visto desde el escenario" width={1600} height={1066} loading="lazy" decoding="async" /><figcaption>Escenario. Comunidad. Presencia real.</figcaption></figure>
+        <figure className="live-film"><video controls playsInline preload="none" poster="/media/off-poster.webp" aria-label="Película de Ithan New York: detrás del escenario y en vivo"><source src="/media/ithan-film.mp4" type="video/mp4" /></video><figcaption>Ithan NY / Dentro y fuera del escenario · 57 segundos</figcaption></figure>
         <div className="live-reels" aria-label="Videos de shows">
           {[{id: 2, title: 'De cerca'}, {id: 4, title: 'La misma energía'}, {id: 6, title: 'Una sola voz'}, {id: 7, title: 'En movimiento'}].map(clip => <figure key={clip.id}><video controls playsInline preload="none" poster={`/media/clip-${clip.id}.webp`} aria-label={`Ithan New York en vivo: ${clip.title}`}><source src={`/media/clip-${clip.id}.mp4`} type="video/mp4" /></video><figcaption>{clip.title}</figcaption></figure>)}
         </div>
@@ -330,14 +324,19 @@ export default function Home({ hub = false }: { hub?: boolean }) {
 
       <section className="visual-story section" id="visual-story">
         <p className="kicker">Visual story / Dentro del movimiento</p>
-        <div className="story-grid"><div><h2>El camino<br /><em>deja huella.</em></h2><p className="lead">Del estudio al escenario. Una mirada al universo de Ithan New York, contada desde adentro.</p><Link className="button button-ghost" href="/ithan">Explorar Ithan ↗</Link></div><figure><video controls playsInline preload="none" poster="/media/clip-1.webp" aria-label="Ithan New York frente a sus discos y reconocimientos"><source src="/media/clip-1.mp4" type="video/mp4" /></video><figcaption>Archivo visual · Discos y reconocimientos</figcaption></figure></div>
+        <div className="story-grid"><div><h2>El camino<br /><em>deja huella.</em></h2><p className="lead">Del estudio al escenario. Una mirada al universo de Ithan New York, contada desde adentro.</p><a className="button button-ghost" href="#journey">Conoce la trayectoria ↗</a></div><figure><Image src="/media/ithan-awards.webp" alt="Ithan NY junto a los discos y reconocimientos de su carrera" width={1400} height={1400} sizes="(max-width: 720px) 90vw, 45vw" /><figcaption>El trabajo se escucha. La historia queda.</figcaption></figure></div>
+        <div className="editorial-gallery">
+          <figure><Image src="/media/ithan-night.webp" alt="Ithan NY en una sesión nocturna con su cadena Flow New York" width={1000} height={1500} sizes="(max-width: 720px) 50vw, 30vw" /><figcaption>01 / Identidad</figcaption></figure>
+          <figure><Image src="/media/ithan-set.webp" alt="Ithan NY durante una producción visual en un set de luces rojas" width={854} height={1280} sizes="(max-width: 720px) 50vw, 30vw" /><figcaption>02 / Visión</figcaption></figure>
+          <figure><Image src="/media/ithan-chile.webp" alt="Ithan New York frente a la bandera de Chile" width={854} height={1280} sizes="(max-width: 720px) 90vw, 30vw" /><figcaption>03 / Origen</figcaption></figure>
+        </div>
       </section>
 
       <section className="journey section" id="journey">
         <div className="section-index">03 / La trayectoria</div>
         <div className="journey-heading">
           <div>
-            <p className="kicker">Con Roni → Suéltala</p>
+            <p className="kicker">Con Roni → Placeres</p>
             <h2>Una historia<br /><span>en movimiento.</span></h2>
           </div>
           <p>
@@ -408,6 +407,7 @@ export default function Home({ hub = false }: { hub?: boolean }) {
             Cuéntanos sobre tu propuesta. Flow New York revisará la solicitud y contactará
             a las oportunidades que encajen con el proyecto.
           </p>
+          <a className="contact-email" href="mailto:flownewyorkinc@gmail.com">flownewyorkinc@gmail.com ↗</a>
         </div>
         <form className="contact-form" onSubmit={submitContactForm}>
           <div className="form-heading">
@@ -479,7 +479,7 @@ export default function Home({ hub = false }: { hub?: boolean }) {
           <span>FLOW</span>
           <span className="brand-orbit">NEW YORK</span>
         </div>
-        <p>Dossier oficial · 2026</p>
+        <p>Ithan New York · Sitio oficial · 2026</p>
         <div className="distrikt-signature">
           <Image
             src="/distrikt-official-logo.jpeg"
